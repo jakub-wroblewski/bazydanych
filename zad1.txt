@@ -1,0 +1,20 @@
+pwd 
+ls -s
+cat 
+mkdir 
+touch 
+nano - edytor
+mysql -u login -p
+
+CREATE TABLE pracownik (id_pracownika INT PRIMARY KEY, imie VARCHAR(30) NOT NULL, nazwisko VARCHAR(50) NOT NULL DEFAULT "Kowalski",
+ zarobki DOUBLE(10,2), data_urodzenia DATE, stanowisko ENUM("menager","ksiegowa","sprzedawca","kasjer" )   );
+
+
+INSERT INTO postac VALUES(1,'Bjorn','wiking','1800-10-13',99);
+INSERT INTO postac VALUES (2,'Drozd','ptak','2010-07-24',11);
+INSERT INTO postac VALUES (3,'Tesciowa','kobieta','1750-07-14',110);
+
+
+UPDATE postac SET wiek = 88 WHERE id_postaci = 3;
+
+CREATE TABLE walizka (id_walizki INT PRIMARY KEY AUTO_INCREMENT,pojemnosc UNSIGNED,kolor ENUM("rozowy","czerwony","teczowy","zolty"),id_wlasciciela INT FOREIGN KEY REFERENCES postac(id_postaci) ON DELETE SET NULL);
