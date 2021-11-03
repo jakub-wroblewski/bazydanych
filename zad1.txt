@@ -24,3 +24,8 @@ CREATE TABLE walizka (id_walizki INT PRIMARY KEY AUTO_INCREMENT,
 pojemnosc UNSIGNED,kolor ENUM("rozowy","czerwony","teczowy","zolty")
 ,id_wlasciciela INT, FOREIGN KEY (id_wlasciciela) 
 REFERENCES postac(id_postac) ON DELETE CASCADE);
+
+ALTER TABLE walizka ALTER COLUMN kolor SET DEFAULT 'rozowy';
+
+
+CREATE TABLE izba(adres_budynku VARCHAR(45), nazwa_izby VARCHAR(45), metraz INT UNSIGNED, wlasciciel INT, FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci)ON DELETE SET NULL);
