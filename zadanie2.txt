@@ -1,0 +1,4 @@
+DELETE FROM postac WHERE id_postaci = 4;
+DELETE FROM postac WHERE id_postaci = 5;
+ALTER TABLE postac ADD FOREIGN KEY(id_postaci) REFERENCES przetwory()
+postac_ibfk_2
