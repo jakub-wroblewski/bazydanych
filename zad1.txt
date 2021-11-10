@@ -29,3 +29,8 @@ ALTER TABLE walizka ALTER COLUMN kolor SET DEFAULT 'rozowy';
 
 
 CREATE TABLE izba(adres_budynku VARCHAR(45), nazwa_izby VARCHAR(45), metraz INT UNSIGNED, wlasciciel INT, FOREIGN KEY (wlasciciel) REFERENCES postac(id_postaci)ON DELETE SET NULL);
+
+UPDATE postac SET statek = 'Knara' WHERE rodzaj = 'wiking';
+UPDATE postac SET statek = 'Drakar' WHERE nazwa = 'Drozd';
+DELETE FROM izba WHERE nazwa_izby = 'Spizarnia';
+DROP TABLE izba;
