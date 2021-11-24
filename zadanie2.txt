@@ -1,4 +1,43 @@
-DELETE FROM postac WHERE id_postaci = 4;
-DELETE FROM postac WHERE id_postaci = 5;
-ALTER TABLE postac ADD FOREIGN KEY(id_postaci) REFERENCES przetwory()
-postac_ibfk_2
+AlTER TABLE postac MODIFY rodzaj ENUM('wiking', 'ptak', 'kobieta', 'syrena');
+INSERT INTO postac VALUES( 9,'Gertruda Nieszczera','syrena','2000-05-17',21,NULL ,NULL ,NULL , 17254937256);
+UPDATE postac SET statek = 'Knara' WHERE nazwa LIKE '%a%';
+UPDATE statek SET max_ladownosc = 130 WHERE rodzaj_statku = 'Drakar';
+UPDATE statek SET max_ladownosc = 65 WHERE rodzaj_statku = 'Knara';
+ALTER TABLE postac ADD CHECK (wiek<1000);
+INSERT INTO postac VALUES( 10,'Loko',NULL,'2016-01-20',5,NULL ,NULL ,NULL ,18756937865);
+CREATE TABLE marynarz (id_postaci INT NOT NULL, nazwa VARCHAR(40) DEFAULT NULL,data_ur DATE DEFAULT NULL,
+wiek INT UNSIGNED DEFAULT NULL,funkcja VARCHAR(40) DEFAULT NULL, nazwa_statku VARCHAR(40) DEFAULT NULL,
+statek VARCHAR(40) DEFAULT NULL, pesel VARCHAR(11) PRIMARY KEY NOT NULL);
+UPDATE postac SET statek = NULL WHERE STATEK IS NOT NULL;
+DELETE from postac WHERE id_postaci = 6;
+DELETE FROM  statek;
+DROP TABLE statek;
+CREATE TABLE zwierz (id INT PRIMARY KEY AUTO_INCREMENT NOT NULL, nazwa VARCHAR(40), wiek INT);
+INSERT INTO zwierz (id, nazwa, wiek) SELECT id_postaci, nazwa, wiek FROM postac WHERE rodzaj = 'ptak';
+INSERT INTO zwierz (id, nazwa, wiek) SELECT id_postaci, nazwa, wiek FROM postac WHERE rodzaj = 'syrena';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
