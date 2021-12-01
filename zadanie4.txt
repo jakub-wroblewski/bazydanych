@@ -1,6 +1,8 @@
-SELECT kreatura.rodzaj, ekwipunek.ilosc FROM kreatura, ekwipunek WHERE kreatura.idKreatury = ekwipunek.idKreatury;
+﻿SELECT kreatura.rodzaj, ekwipunek.ilosc FROM kreatura, ekwipunek WHERE kreatura.idKreatury = ekwipunek.idKreatury;
 SELECT kreatura.rodzaj, ekwipunek.ilosc, zasob.nazwa FROM kreatura, ekwipunek, zasob WHERE kreatura.idKreatury = ekwipunek.idKreatury AND ekwipunek.idZasobu = zasob.idZasobu;
 SELECT DISTINCT(nazwa) FROM kreatura LEFT JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury WHERE ekwipunek.idKreatury IS NULL;
 SELECT kreatura.nazwa, zasob.nazwa FROM kreatura, zasob NATURAL JOIN ekwipunek WHERE kreatura.idKreatury
 = ekwipunek.idKreatury AND kreatura.rodzaj = 'wiking' AND YEAR(dataUr) BETWEEN 11670 AND 1679; // działa ale nie działa
 SELECT kreatura.nazwa FROM kreatura, ekwipunek, zasob WHERE kreatura.idKreatury = ekwipunek.idKreatury AND ekwipunek.idZasobu = zasob.idZasobu AND zasob.rodzaj = 'jedzenie' ORDER BY YEAR(dataUr) DESC;
+SELECT CONCAT(a.nazwa,'-',b.nazwa) FROM kreatura a INNER JOIN kreatura b WHERE b.idKreatury - a.idKreatury >= 5;
+SELECT DISTINCT(kreatura.rodzaj), AVG(zasob.waga) FROM kreatura INNER JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury INNER JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu WHERE NOT kreatura.nazwa = 'malpa' OR kreatura.nazwa = 'waz' AND ekwipunek.ilosc > 30 GROUP BY rodzaj;
