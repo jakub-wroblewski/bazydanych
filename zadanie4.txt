@@ -6,3 +6,6 @@ SELECT kreatura.nazwa, zasob.nazwa FROM kreatura, zasob NATURAL JOIN ekwipunek W
 SELECT kreatura.nazwa FROM kreatura, ekwipunek, zasob WHERE kreatura.idKreatury = ekwipunek.idKreatury AND ekwipunek.idZasobu = zasob.idZasobu AND zasob.rodzaj = 'jedzenie' ORDER BY YEAR(dataUr) DESC;
 SELECT CONCAT(a.nazwa,'-',b.nazwa) FROM kreatura a INNER JOIN kreatura b WHERE b.idKreatury - a.idKreatury >= 5;
 SELECT DISTINCT(kreatura.rodzaj), AVG(zasob.waga) FROM kreatura INNER JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury INNER JOIN zasob ON ekwipunek.idZasobu = zasob.idZasobu WHERE NOT kreatura.nazwa = 'malpa' OR kreatura.nazwa = 'waz' AND ekwipunek.ilosc > 30 GROUP BY rodzaj;
+
+SELECT AVG(waga), nazwa AS srednia FROM zasob GROUP BY nazwa HAVING SUM(waga)>=10 AND SUM(ilosc)>=4;
+//Do zadania 4/2.2
