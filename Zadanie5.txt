@@ -1,0 +1,16 @@
+/////////
+SELECT k1.rodzaj,k1.nazwa,mlodzi.minimalna_data,k2.nazwa,mlodzi.maksymalna_data FROM (SELECT rodzaj, MIN(dataUr) AS minimalna_data,MAX(dataUr) AS maksymalna_data FROM kreatura GROUP BY rodzaj) AS mlodzi JOIN kreatura k1 ON mlodzi.rodzaj = k1.rodzaj AND mlodzi.minimalna_data = k1.dataUr JOIN kreatura k2 ON mlodzi.rodzaj = k2.rodzaj AND mlodzi.maksymalna_data = k2.dataUr;
+/////////
+
+
+
+
+
+SELECT nazwa, idKreatury FROM kreatura WHERE idKreatury NOT IN (SELECT id_uczestnika FROM uczestnicy);
+
+SELECT DISTINCT(wyprawa.nazwa), SUM(ekwipunek.ilosc) FROM wyprawa JOIN uczestnicy ON wyprawa.id_wyprawy = uczestnicy.id_wyprawy JOIN kreatura ON kreatura.idKreatury = uczestnicy.id_uczestnika JOIN ekwipunek ON kreatura.idKreatury = ekwipunek.idKreatury GROUP BY wyprawa.id_wyprawy;
+
+SELECT wyprawa.nazwa, SUM(1), GROUP_CONCAT(kreatura.nazwa) FROM wyprawa,uczestnicy, kreatura WHERE wyprawa.id_wyprawy - uczestnicy.id_wyprawy AND kreatura.idKreatury = uczestnicy.id_uczestnika GROUP BY wyprawa.id_wyprawy;
+
+SELECT wyprawa.nazwa, sektor.nazwa, kreatura.nazwa FROM wyprawa, sektor, etapy_wyprawy, kreatura WHERE etapy_wyprawy.idWyprawy = wyprawa.id_wyprawy AND etapy_wyprawy.sektor = sektor.id_sektora AND kreatura.idKreatury = wyprawa.kierownik ORDER BY wyprawa.data_rozpoczecia, etapy_wyprawy.kolejnosc;
+
