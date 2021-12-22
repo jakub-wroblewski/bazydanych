@@ -14,3 +14,10 @@ SELECT wyprawa.nazwa, SUM(1), GROUP_CONCAT(kreatura.nazwa) FROM wyprawa,uczestni
 
 SELECT wyprawa.nazwa, sektor.nazwa, kreatura.nazwa FROM wyprawa, sektor, etapy_wyprawy, kreatura WHERE etapy_wyprawy.idWyprawy = wyprawa.id_wyprawy AND etapy_wyprawy.sektor = sektor.id_sektora AND kreatura.idKreatury = wyprawa.kierownik ORDER BY wyprawa.data_rozpoczecia, etapy_wyprawy.kolejnosc;
 
+
+
+SELECT sektor.nazwa, COUNT(etapy_wyprawy.sektor) FROM etapy_wyprawy RIGHT JOIN sektor ON etapy_wyprawy.sektor=sektor.id_sektora GROUP BY sektor.nazwa;
+SELECT kreatura.nazwa, IF(COUNT(uczestnicy.id_uczestnika)>0,'bral udzial w wyprawie','nie bral udzialu w wyprawie') AS udzial FROM uczestnicy RIGHT JOIN kreatura ON uczestnicy.id_uczestnika = kreatura.idKreatury GROUP BY kreatura.nazwa;
+SELECT wyprawa.nazwa,SUM(LENGTH(etapy_wyprawy.dziennik)) FROM wyprawa INNER JOIN etapy_wyprawy ON wyprawa.id_wyprawy = etapy_wyprawy.idWyprawy GROUP BY wyprawa.nazwa HAVING SUM(LENGTH(etapy_wyprawy.dziennik))<400;
+SELECT wyprawa.nazwa, SUM(zasob.waga*zasob.ilosc)/COUNT(uczestnicy.id_uczestnika) FROM wyprawa, uczestnicy, zasob, ekwipunek WHERE wyprawa.id_wyprawy = uczestnicy.id_wyprawy AND ekwipunek.idKreatury = uczestnicy.id_uczestnika GROUP BY wyprawa.nazwa;
+SELECT kreatura.nazwa, TIMESTAMPDIFF(day,dataUr,data_rozpoczecia) AS wiek FROM wyprawa, kreatura, etapy_wyprawy, uczestnicy, sektor WHERE etapy_wyprawy.idWyprawy = wyprawa.id_wyprawy AND uczestnicy.id_uczestnika = kreatura.idKreatury AND uczestnicy.id_wyprawy = wyprawa.id_wyprawy AND etapy_wyprawy.sektor = sektor.id_sektora AND sektor.nazwa = 'Chatka dziadka';
