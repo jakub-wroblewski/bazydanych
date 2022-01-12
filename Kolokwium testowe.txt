@@ -1,0 +1,24 @@
+zad 3.a
+CREATE TABLE promotor(pesel CHAR(11) PRIMARY KEY, tytul enum('mgr','dr','prof') DEFAULT 'prof', imie VARCHAR(40) NOT NULL, nazwisko VARCHAR(50) NOT NULL, zarobki DOUBLE(10,2) UNSIGNED DEFAULT 2000, dataur DATE);
+zad 3.b
+CREATE TABLE praca(promotor CHAR(11), nrindeksu CHAR(6), tytulPracy TEXT, ocena enum('dst', 'dst plus', 'db', 'db plus', 'bdb') DEFAULT 'dst', PRIMARY KEY(promotor,nrindeksu), FOREIGN KEY(promotor) REFERENCES promotor(pesel) ON DELETE CASCADE);
+zad 4
+INSERT INTO promotor(pesel, tytul, imie,nazwisko) SELECT idKreatury, 'mgr',nazwa, rodzaj FROM wikingowie.kreatura WHERE idKreatury = 5;
+zad 5
+UPDATE promotor SET zarobki = zarobki*2 WHERE tytul = 'mgr';
+zad 6
+ALTER TABLE praca DROP FOREIGN KEY praca_ibfk_1;
+zad 7.a
+SELECT CONCAT(imie, ' ', nazwisko) AS zawodnik, Dataur, wzrost FROM zawodnicy WHERE wzrost>180 ORDER BY Dataur DESC;
+zad 7.b
+SELECT zawodnicy.imie, zawodnicy.nazwisko FROM zawodnicy LEFT JOIN udzial ON zawodnicy.Idzaw = udzial.Idzaw WHERE udzial.Idmeczu IS NULL;
+zad 7.c
+SELECT kluby.miasto, kluby.nazwa, COUNT(zawodnicy.imie) AS liczba_zawodnikow FROM kluby LEFT JOIN zawodnicy ON kluby.IdKlubu = zawodnicy.IdKlubu GROUP BY kluby.miasto, kluby.nazwa;
+zad 7.d
+SELECT COUNT(*), udzial.Idzaw, zawodnicy.imie, zawodnicy.nazwisko FROM udzial JOIN zawodnicy ON zawodnicy.Idzaw = udzial.Idzaw GROUP BY udzial.Idzaw, zawodnicy.imie, zawodnicy.nazwisko ORDER BY COUNT(*) DESC LIMIT 1;
+zad 7.e
+SELECT zawodnicy.imie, zawodnicy.nazwisko, SUM(doMinuty - odMinuty +1) liczba_minut FROM zawodnicy JOIN udzial ON zawodnicy.Idzaw = udzial.Idzaw JOIN kluby ON zawodnicy.idKlubu = kluby.IdKlubu WHERE nazwa = 'Tecza'  GROUP BY zawodnicy.imie, zawodnicy.nazwisko;
+zad 7.f
+SELECT zawodnicy.imie, zawodnicy.nazwisko, zawodnicy.wzrost/100 AS wzrost_metry, COUNT(*) AS liczba_meczy FROM zawodnicy JOIN udzial ON zawodnicy.Idzaw = udzial.Idzaw WHERE imie LIKE 'Ja%'  GROUP BY zawodnicy.imie, zawodnicy.nazwisko, wzrost_metry HAVING COUNT(*) >=2;
+zad 7.g
+SELECT kluby.nazwa, mecze.Idgosc, SUM(mecze.goleGosc) AS gole FROM mecze JOIN kluby ON kluby.IdKlubu = mecze.Idgosc  GROUP BY mecze.Idgosc, kluby.nazwa ORDER BY 3 DESC LIMIT 1;
